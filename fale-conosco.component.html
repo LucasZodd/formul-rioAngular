@@ -1,0 +1,62 @@
+<div>
+
+    <mat-list-item>
+        <span class="main_cards-title">
+            Fale conosco
+        </span>
+    </mat-list-item>
+
+    <mat-divider class="main-cards_divider_card-top"></mat-divider>
+
+    <form [formGroup]="formCliente" (ngSubmit)="onSubmit()">
+
+        <div class="main-container-mat-form">
+            <div class="container-mat-form">
+                <mat-form-field class="form-field" appearance="outline">
+                    <mat-label>Seu nome</mat-label>
+                    <input matInput formControlName="nome" name="nome" required />
+                    <mat-error *ngIf="formCliente.get('nome')?.hasError('required')">Este campo é obrigatório</mat-error>
+                    <mat-error *ngIf="formCliente.get('nome')?.hasError('pattern')">Deve colocar o nome completo</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="container-mat-form">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" name="email" required />
+                  <mat-error *ngIf="formCliente.get('email')?.hasError('required')">Este campo é obrigatório</mat-error>
+                  <mat-error *ngIf="formCliente.get('email')?.hasError('email')">Deve colocar um email valido</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="container-mat-form">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Telefone</mat-label>
+                  <input matInput formControlName="telefone" [formControl]="phoneFC"
+                  [inputMask]="phoneInputMask" placeholder="(00) 00000-0000" required />
+                  <mat-error *ngIf="formCliente.get('telefone')?.hasError('required')">Este campo é obrigatório</mat-error>
+                  <mat-error *ngIf="formCliente.get('telefone')?.hasError('pattern')">Deve colocar um número valido</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="container-mat-form">
+                <mat-form-field appearance="outline" class="form-field">
+                    <textarea matInput formControlName="texto" name="Texto" cols="80" rows="8" placeholder="Digite o seu questionamento" class="alteracaoEdicao" 
+                                [maxlength]="maxlength" (ngModelChange)="updateCount($event)" required></textarea>
+                                <span *ngIf="f.texto" class="remaning">{{remaining}}</span>
+                </mat-form-field>
+            </div>
+
+            
+
+        </div>
+
+
+    </form>
+
+    <div mat-dialog-actions>
+        <button mat-stroked-button color="primary" type="submit" [disabled]="!formCliente.valid" cdkFocusInitial>Enviar</button>
+        <button mat-button [mat-dialog-close]="">Cancelar</button>
+    </div>
+
+</div>
